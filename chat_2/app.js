@@ -1,33 +1,63 @@
 const express = require("express")
-const { WebSocketServer } = require("ws")
-const app = express()
+const http = require('http');
+const WebSocket = require('ws')
 
-app.use(express.static("public"))
+const port = 8000;
+const server = http.createServer(express);
+const wss = new WebSocket.Server({server})
 
-const httpServer = app.listen(8000, () => {
-  console.log(`Example app listening on port 8000`)
+server.listen(port, function(){
+    console.log(`Server is listening on ${port}!`);
 })
 
-const wss = new WebSocketServer({ server: httpServer })
+// broadcast 메소드
+wss.broadcast = (message) => {
+    wss.clients.forEach((client) => {
+        client.send(message);
+    });
+};
 
-// Broadcast
-wss.on("connection", (ws, request) => {
-    wss.clients.forEach(client => {
-        client.send(`New User connecting 😝 현재 ${wss.clients.size} 명`) // wss.clients는 list가 아닌 Set이므로 length 대신 size 사용
-        console.log(wss.clients.size);
-    })
+wss.on("connection", function connection(ws) {
+    ws.on("message", function incoming(data) {
+        wss.broadcast(data.toString());
+    });
+
+    // user connection
+    wss.clients.forEach((client) => {
+        wss.broadcast(`New User connecting 😝 현재 ${wss.clients.size} 명`)
+    });
+
+    // user close
+    ws.on("close", () => {
+        wss.broadcast(`Goodbye user 😭 현재 ${wss.clients.size} 명`);
+    });
+
+    // 메세지 전송
+    function sendMessage() {
+        const nickname = document.getElementById("nickname").value
+        const message = document.getElementById("message").value
+        const fullMessage = `${nickname}: ${message}`
     
-    // client에서 수신
+        ws.send(fullMessage)
+        clearMessage()
+    }
+
+    ws.onmessage = sendMessage
+
+    // 메세지 받기
     function receiveMessage(event) {
         const chat = document.createElement("div")
         const message = document.createTextNode(event.data)
         chat.appendChild(message)
-            
+
         const chatLog = document.getElementById("chat-log")
         chatLog.appendChild(chat)
     }
-            
-    ws.onmessage = receiveMessage;
+    
+        ws.onmessage = receiveMessage
+
+    // input 비우기
+    function clearMessage() {
+        document.getElementById("message").value = ""
+        }
 })
-
-

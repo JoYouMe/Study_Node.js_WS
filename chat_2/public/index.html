@@ -8,7 +8,7 @@
     <script>
       const ws = new WebSocket("ws://localhost:8000")
 
-      ws.onmessage = (e) => {
+       ws.onmessage = (e) => {
         console.log(e.data);
       }
 
@@ -17,6 +17,7 @@
 
       // 메세지 수신
       function receiveMessage() {}
+
     </script>
   </head>
   <body>
@@ -34,8 +35,8 @@
         placeholder="메세지"
         style="width: 200px"
       />
-      <button>전송</button>
+      <button onclick="sendMessage()">전송</button>
     </div>
-    <div id="chat-log">chat-log</div>
+    <div id="chat-log"></div>
   </body>
 </html>

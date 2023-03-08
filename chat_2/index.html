@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Websocket Chatting</title>
+    <link rel="stylesheet" href="style.css" type="text/css" >
+
+    <script>
+      // (function(){
+      //   const sendBtn = document.querySelector('#sendBtn');
+      //   const nickname = document.querySelector('#nickname');
+      //   const messages = document.querySelector('#messages');
+      //   const messageBox = document.querySelector('#messageBox');
+
+      //   let ws;
+
+      //   function showMessage(message) {
+      //   messages.textContent += `\n\n${message}`;
+      //   messages.scrollTop = messages.scrollHeight;
+      //   messageBox.value = '';
+      //   }
+
+      //   function init() {
+      //     if (ws) {
+      //       ws.onerror = ws.onopen = ws.onclose = null;
+      //       ws.close();
+      //     }
+
+      //     ws = new WebSocket('ws://localhost:8000');
+      //     ws.onopen = () => {
+      //       console.log('Connection opened!');
+      //     }
+      //     ws.onmessage = ({ data }) => showMessage(data);
+      //     ws.onclose = function() {
+      //       ws = null;
+      //     }
+      //   }
+
+      //   sendBtn.onclick = function () {
+      //     if (!ws) {
+      //       showMessage("No WebSocket connection 😞");
+      //       return ;
+      //     }
+
+      //     ws.send(nickname.value);
+      //     ws.send(messageBox.value);
+      //     showMessage(nickname.value);
+      //     showMessage(messageBox.value);
+      //   }
+
+      //   init();
+      // })();
+ 
+      const ws = new WebSocket("ws://localhost:8000")
+
+       ws.onmessage = (e) => {
+        console.log(e.data);
+      }
+
+      // 메세지 전송
+      function sendMessage() {}
+
+      // 메세지 수신
+      function receiveMessage() {}
+
+    </script>
+  </head>
+  <body>
+    <h1>👨‍💻👩‍💻</h1>
+    <div class="aa">
+      <input
+        class="nick"
+        type="text"
+        id="nickname"
+        placeholder="닉네임"
+      />
+      <input
+        class="msg"
+        type="text"
+        id="messageBox"
+        placeholder="메세지"
+      />
+      <button onclick="sendMessage()" class="btn" id="sendBtn">SEND</button>
+      <pre id="messages"></pre>
+    </div>
+    <div id="chat-log"></div>
+    </div>
+</html>

@@ -1,0 +1,57 @@
+
+
+h1{
+    text-align: center;
+}
+
+.aa {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: center;
+    
+}
+
+.nick {
+    display: block;
+    width: 150px; 
+    height: 30px;
+    margin-right: 5px;
+    margin-bottom: 10px; 
+    background-color: rgb(232, 230, 230);
+    border-radius: 5px;
+    border: none;
+}
+
+.msg {
+    display: block;
+    width: 60%; 
+    height: 30px;
+    margin-right: 5px;
+    margin-bottom: 10px; 
+    background-color: rgb(232, 230, 230);
+    border-radius: 5px;
+    border: none;
+}
+
+.btn{
+    width: 10%; 
+    height: 27px; 
+    background: #00AE68;
+    box-shadow: 0px 5px 0px 0px #02824f;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #19bf7d;
+    box-shadow: 0px 5px 0px 0px #0f9f65;
+}
+
+pre{
+    height: 400px; 
+    overflow: scroll;
+}

@@ -17,8 +17,8 @@ wss.broadcast = (message) => {
     });
 };
 
-wss.on("connection", function connection(ws) {
-    ws.on("message", function incoming(data) {
+wss.on("connection", function (ws) {
+    ws.on("message", function (data) {
         wss.broadcast(data.toString());
     });
 
@@ -32,7 +32,13 @@ wss.on("connection", function connection(ws) {
         wss.broadcast(`Goodbye user 😭 현재 ${wss.clients.size} 명`);
     });
 
-    // 메세지 전송
+    // wss.clients.forEach(function each(client) {
+    //     if (client !== ws && client.readyState === WebSocket.OPEN) {
+    //       client.send(data);
+    //     }
+    //   })
+
+    // // 메세지 전송
     function sendMessage() {
         const nickname = document.getElementById("nickname").value
         const message = document.getElementById("message").value
@@ -44,7 +50,7 @@ wss.on("connection", function connection(ws) {
 
     ws.onmessage = sendMessage
 
-    // 메세지 받기
+    // // 메세지 수신
     function receiveMessage(event) {
         const chat = document.createElement("div")
         const message = document.createTextNode(event.data)
@@ -54,10 +60,10 @@ wss.on("connection", function connection(ws) {
         chatLog.appendChild(chat)
     }
     
-        ws.onmessage = receiveMessage
+    ws.onmessage = receiveMessage
 
-    // input 비우기
+    // // input 비우기
     function clearMessage() {
-        document.getElementById("message").value = ""
-        }
+        document.getElementById("message").value = '';
+    }
 })

@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/style.css")
+    title Home
+  body 
+    h1 👨‍💻ChatChat👩‍💻
+    table#chatrooms 
+      thead 
+        tr 
+          th 이름
+          th 참여 
+      tbody#room_list
+        //- each room in rooms
+        //-   tr 
+        //-     td=room.title 
+        //-     td 
+        //-       form(action=`/chat/${room.roomId}` method="get") 
+        //-         button(type='submit') 참여
+              
+    form(action="/newroom", method="get") 
+      button(type="submit") 방 만들기
+    
+    script(src="/index.js") 
+

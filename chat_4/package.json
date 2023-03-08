@@ -1,0 +1,23 @@
+{
+  "name": "ws-module",
+  "version": "1.0.0",
+  "description": "ws module study",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "cloer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2",
+    "ws": "^8.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "nodemon": "^2.0.15"
+  }
+}

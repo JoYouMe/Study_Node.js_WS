@@ -6,52 +6,7 @@
     <title>Websocket Chatting</title>
     <link rel="stylesheet" href="style.css" type="text/css" >
 
-    <script>
-      // (function(){
-      //   const sendBtn = document.querySelector('#sendBtn');
-      //   const nickname = document.querySelector('#nickname');
-      //   const messages = document.querySelector('#messages');
-      //   const messageBox = document.querySelector('#messageBox');
-
-      //   let ws;
-
-      //   function showMessage(message) {
-      //   messages.textContent += `\n\n${message}`;
-      //   messages.scrollTop = messages.scrollHeight;
-      //   messageBox.value = '';
-      //   }
-
-      //   function init() {
-      //     if (ws) {
-      //       ws.onerror = ws.onopen = ws.onclose = null;
-      //       ws.close();
-      //     }
-
-      //     ws = new WebSocket('ws://localhost:8000');
-      //     ws.onopen = () => {
-      //       console.log('Connection opened!');
-      //     }
-      //     ws.onmessage = ({ data }) => showMessage(data);
-      //     ws.onclose = function() {
-      //       ws = null;
-      //     }
-      //   }
-
-      //   sendBtn.onclick = function () {
-      //     if (!ws) {
-      //       showMessage("No WebSocket connection 😞");
-      //       return ;
-      //     }
-
-      //     ws.send(nickname.value);
-      //     ws.send(messageBox.value);
-      //     showMessage(nickname.value);
-      //     showMessage(messageBox.value);
-      //   }
-
-      //   init();
-      // })();
- 
+    <script> 
       const ws = new WebSocket("ws://localhost:8000")
 
        ws.onmessage = (e) => {
@@ -86,4 +41,32 @@
     </div>
     <div id="chat-log"></div>
     </div>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebSocket Client</title>
+  </head>
+  <body>
+    <input type="text" id="message" />
+    <button onclick="send()">Send</button>
+    <script>
+      const socket = new WebSocket('ws://localhost:8081');
+
+      socket.addEventListener('open', (event) => {
+        console.log('WebSocket connected');
+      });
+
+      socket.addEventListener('message', (event) => {
+        console.log(`Received data from WebSocket server: ${event.data}`);
+      });
+
+      function send() {
+        const message = document.getElementById('message').value;
+        socket.send(message);
+      }
+    </script>
+  </body>
 </html>

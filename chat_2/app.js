@@ -10,7 +10,6 @@ server.listen(port, function(){
     console.log(`Server is listening on ${port}!`);
 })
 
-// broadcast 메소드
 wss.broadcast = (message) => {
     wss.clients.forEach((client) => {
         client.send(message);

@@ -31,3 +31,8 @@ ws.onmessage = function (event) {
   const rooms = JSON.parse(event.data);
   drawRooms(rooms);
 };
+
+// 현재 접속 인원
+// ws.onmessage = (e) => {
+//   console.log(e.data);
+// }

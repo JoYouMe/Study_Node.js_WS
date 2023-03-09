@@ -66,7 +66,7 @@ button {
   display: flex;
   align-items: center;
 }
-.mychat {
+.mychat {   
   justify-content: flex-end;
 }
 .yourchat {

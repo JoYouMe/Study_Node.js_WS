@@ -24,13 +24,14 @@
         ws.close();
       }
 
-      ws = new WebSocket('ws://localhost:6969');
+      ws = new WebSocket('ws://localhost:3002');
       ws.onopen = () => {
-        console.log('Connection opened!');
+        console.log('WebSocket connection opened!');
       }
       ws.onmessage = ({ data }) => showMessage(data);
-      ws.onclose = function() {
+      ws.onclose = function() { 
         ws = null;
+        console.log('WebSocket connection closed!');
       }
     }
 
@@ -47,3 +48,6 @@
     init();
   })();
 </script>
+
+
+

@@ -6,7 +6,28 @@ module.exports = (server, app) => {
   // used at app.post('newroom') on app.js
   app.set('wss', wss);
 
+  // broadcast 메소드
+  wss.broadcast = (message) => {
+  wss.clients.forEach((client) => {
+      client.send(message);
+    });
+  };
+
   wss.on('connection', (ws, req) => {
+    ws.on("message", function (data) {
+      wss.broadcast(data.toString());
+  });
+
+  // user connection
+  wss.clients.forEach((client) => {
+      wss.broadcast(`New User connecting 😝 현재 ${wss.clients.size} 명`)
+  });
+
+  // user close
+  ws.on("close", () => {
+      wss.broadcast(`Goodbye user 😭 현재 ${wss.clients.size} 명`);
+  });
+
     if (req.url === '/rooms') {
       ws.location = 'index';
       // get a data when into index
@@ -25,13 +46,9 @@ module.exports = (server, app) => {
       });
     }
 
+    // 에러 처리
     ws.on('error', (error) => {
       console.error(error);
-      app.locals.message = error.message;
-      app.locals.error = process.env.NODE_ENV !== ' production' ? error : {};
-      app.render('error');
     });
-
-    ws.on('close', () => console.log(`${req.url} connection close`));
   });
 };

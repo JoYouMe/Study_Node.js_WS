@@ -1,5 +1,5 @@
-const EventEmitter = require('events');
 const net = require('net');
+const EventEmitter = require('events');
 
 class TcpServer{
         constructor(port){        

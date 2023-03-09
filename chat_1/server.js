@@ -2,36 +2,51 @@ const net = require('net');
 const WebSocket = require('ws');
 const port = 3001;
 const tcpSockets = [];
-const TcpClient = require('./tcpClient');
+// const TcpClient = require('./tcpClient');
 
-const tcp_client = new TcpClient('localhost', 5000);
+// const tcp_client = new TcpClient('localhost', 5000);
 
 // const wss = new WebSocket.Server({ port: 3002 });
 
-const tcpClient = new net.Socket()
+// const tcpClient = new net.Socket()
 
-const tcpServer = net.createServer(socket => {
-  console.log('TCP 연결');
-  tcpSockets.push(socket);
+// const tcpServer = net.createServer(socket => {
+//   console.log('TCP 연결');
+//   tcpSockets.push(socket);
 
-  socket.write('TCP server🙌\r\n');
+//   socket.write('TCP server🙌\r\n');
 
-  socket.on('data', data => {
-    console.log(`TCP data : ${data}`);
-    socket.write(data);
-  });
+//   socket.on('data', data => {
+//     console.log(`TCP data : ${data}`);
+//     socket.write(data);
+//   });
 
-  socket.on('end', () => {
-    console.log('TCP 연결끊기');
-    const index = tcpSockets.indexOf(socket);
-    if (index > -1) {
-      tcpSockets.splice(index, 1);
-    }
-  });
+//   socket.on('end', () => {
+//     console.log('TCP 연결끊기');
+//     const index = tcpSockets.indexOf(socket);
+//     if (index > -1) {
+//       tcpSockets.splice(index, 1);
+//     }
+//   });
+// });
+
+// tcpServer.listen(port, () => {
+//   console.log('TCP server listening on port 3001');
+// });
+const client = new net.Socket();
+
+client.connect(8080, 'localhost', () => {
+  console.log('TCP server랑 연결');
+  
 });
 
-tcpServer.listen(port, () => {
-  console.log('TCP server listening on port 3001');
+client.on('data', (data) => {
+  console.log(data.toString());
+  client.destroy(); // close the connection
+});
+
+client.on('close', () => {
+  console.log('클라이언트 연결 종료');
 });
 
 
@@ -43,7 +58,7 @@ wss.on('connection', ws => {
 
   ws.on('message', message => {
     console.log(`WebSocket message: ${message}`);
-
+    client.write(message);
     wss.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(message);
